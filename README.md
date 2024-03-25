@@ -1,6 +1,6 @@
 # Apróhirdetés alkalmazás backend
 
-TODO: frontend repo linkje.
+Frontend: [https://github.com/darkbeast0106/advertisement-app-frontend](https://github.com/darkbeast0106/advertisement-app-frontend)
 
 ## Telepítés lépései
 
