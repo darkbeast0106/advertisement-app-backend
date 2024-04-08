@@ -1,0 +1,73 @@
+1. authentikáció 
+2. tábla-kapcsolatok
+3. képfeltöltés
+
+felhasználók bejelentkezés után hirdetést tudnak feladni
+
+Adatok
+- users - felhasználók -> laravel alapértelmezett migrációval
+- advertisement - hirdetések
+  - title - cím
+  - description - leírás
+  - image - kép - későbbi fejlesztés - alter migration
+  - user_id - a hirdetés feladója
+
+Fejlesztések, funkciók
+
+Milestone 1:
+
+Backend:
+útvonal:
+Autentikáció: 
+  POST /api/register -> validáció
+  POST /api/login -> validáció
+  POST /api/logout
+  POST /api/logout-everywhere
+...
+
+Frontend:
+ Ha nincs bejelentkezve
+  - regisztráció -> RegisterForm
+  - bejelentkezés -> LoginForm
+ Ha be van jelentkezve -> UserProfile
+  - felhasználói adatok kiírása -> csak név
+  - kijelentkezés
+...
+
+
+Milestone 2:
+
+Backend:
+- hirdetések -> új model, migráció, stb.
+- Útvonalak: teljes CRUD -> /advertisement
+
+Frontend
+- Bootstrap
+- Navigációs sáv bejelentkezési állapottól függően jelenjen meg
+- Főoldal -> összes hirdetés listázása
+- Új hirdetés -> csak bejelentkezve elérhető -> felhasználó fel tud venni új hirdetést
+- Saját hirdetéseim -> felhasználó a saját hirdetéseit látja -> itt módosítás és törlési lehetőség
+- Hirdetés módosítása -> hirdetés kiválasztásával érhető el -> a felhasználó csak a saját hirdetéseit tudja szerkeszteni
+
+
+Milestone 3:
+Képek feltöltése és megjelenítése
+- Képek tárolásának módja:
+  + images mappa és oda mutató link - adatbázisban kép neve / elérése a szerveren
+  - Adatbázisba elkódolva tárolni, majd visszakódolás - adatbázisban BLOB típus
+  - Másik nyílvánosan elérhető tárhelyre feltöltés, majd onnan belinkelés - adatbázisban url-t tárolva
+  
+Backend
+- alter migráció - image oszlop hozzáadása - varchar - nullable
+- Laravel storage beállítása, public storage létrehozása:
+	php artisan storage:link
+- Factory kiegészítése: képek automatikus generálása seedeléshez.
+- Request osztályok kiegészítése - image adat validálása (file, nem kötelező, kép kell hogy legyen)
+- Backend végpontok módosítása: képet is adják vissza, képet tárolják, ha meg van adva.
+  - Módosítás esetén, ha nincs új kép feltöltve maradjon az előző, esetleg kép eltávolítása gomb és végpont
+
+Frontend
+- Kép input hozzáadása felvételi űrlaphoz
+- Kép megjelenítése hirdetés listázó komponensen
+- Saját hirdetéseim oldalon kép eltávolítása opció
+- Hirdetés módosítása oldal.
