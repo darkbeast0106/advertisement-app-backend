@@ -2,6 +2,10 @@
 
 Frontend: [https://github.com/darkbeast0106/advertisement-app-frontend](https://github.com/darkbeast0106/advertisement-app-frontend)
 
+## Követelmények
+
+- PHP 8.2
+
 ## Telepítés lépései
 
 - Csomagok telepítése
