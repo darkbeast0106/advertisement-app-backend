@@ -21,6 +21,34 @@ class AuthController extends Controller
         return response()->json($user, 201);
     }
 
+    /**
+     * @OA\Post(
+     *     path="/api/login",
+     *     tags={"Auth"},
+     *     operationId="login",
+     *     summary="Login",
+     *     description="Bejelentkezés a rendszerbe",
+     *     @OA\RequestBody(
+     *         description="Bejelentkezési adatok",
+     *         required=true,
+     *         @OA\JsonContent(
+     *              type="object",
+     *              @OA\Examples(example="teszt",
+     *               value={"email": "teszt@example.com", "password": "asdf1234" },
+     *               summary="Teszt Elek"
+     *              ),
+     *              @OA\Examples(example="gipsz",
+     *               value={"email": "gipsz@example.com", "password": "asdf1234" },
+     *               summary="Gipsz Jakab"
+     *              ),
+     *         ),
+     *     ),
+     *     @OA\Response(
+     *         response=401,
+     *         description="Hibás felhasználónév vagy jelszó",
+     *     )
+     * )
+     */
     public function login(LoginRequest $request) {
         $user = User::where("email", $request->email)->first();
 

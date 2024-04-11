@@ -1,0 +1,140 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Advertisement API",
+        "version": "0.1"
+    },
+    "paths": {
+        "/api/advertisement": {
+            "get": {
+                "tags": [
+                    "Advertisement"
+                ],
+                "summary": "A bejelentkezett felhasználó összes hirdetésének listázása",
+                "description": "",
+                "operationId": "8f5bcb1fe86c12866aabde22887efb1e",
+                "responses": {
+                    "200": {
+                        "description": "Sikeres művelet"
+                    },
+                    "401": {
+                        "description": "Nincs bejelentkezve a felhasználó vagy érvénytelen token"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/api/advertisement/{id}": {
+            "delete": {
+                "tags": [
+                    "Advertisement"
+                ],
+                "summary": "Törli a hirdetést",
+                "description": "Megadott azonosítójú hirdetés törlése",
+                "operationId": "destroy",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Törlendő hirdetés azonosítója",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Sikeres törlés"
+                    },
+                    "401": {
+                        "description": "Nincs bejelentkezve"
+                    },
+                    "403": {
+                        "description": "Nem saját hirdetés"
+                    },
+                    "404": {
+                        "description": "Hirdetés nem található"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/api/advertisement/all": {
+            "get": {
+                "tags": [
+                    "Advertisement"
+                ],
+                "summary": "Összes hirdetés listázása",
+                "description": "",
+                "operationId": "a39c94b729aa7c909cb956226813b2e4",
+                "responses": {
+                    "200": {
+                        "description": "Sikeres művelet"
+                    }
+                }
+            }
+        },
+        "/api/login": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Login",
+                "description": "Bejelentkezés a rendszerbe",
+                "operationId": "login",
+                "requestBody": {
+                    "description": "Bejelentkezési adatok",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object"
+                            },
+                            "examples": {
+                                "teszt": {
+                                    "summary": "Teszt Elek",
+                                    "value": {
+                                        "email": "teszt@example.com",
+                                        "password": "asdf1234"
+                                    }
+                                },
+                                "gipsz": {
+                                    "summary": "Gipsz Jakab",
+                                    "value": {
+                                        "email": "gipsz@example.com",
+                                        "password": "asdf1234"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "401": {
+                        "description": "Hibás felhasználónév vagy jelszó"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "securitySchemes": {
+            "sanctum": {
+                "type": "apiKey",
+                "description": "Enter token in format (Bearer <token>)",
+                "name": "Authorization",
+                "in": "header"
+            }
+        }
+    }
+}

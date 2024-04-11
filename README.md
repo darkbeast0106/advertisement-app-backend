@@ -49,3 +49,8 @@ Frontend: [https://github.com/darkbeast0106/advertisement-app-frontend](https://
   ```sh
   php artisan serve
   ```
+
+## Swagger elérhetősége
+
+- /api/documentation oldalon elérhető a swagger UI
+- Swagger dokumentáció /storage/api-docs/api-docs.json fájlban érhető el.

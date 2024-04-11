@@ -8,12 +8,37 @@ use App\Http\Requests\UpdateAdvertisementRequest;
 use App\Models\Advertisement;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\Request;
+use OpenApi\Annotations as OA;
 
+/**
+ * @OA\Info(
+ *     title="Advertisement API",
+ *     version="0.1"
+ * )
+ */
 class AdvertisementController extends Controller
 {
     use AuthorizesRequests;
     /**
-     * Display a listing of the resource.
+     * @OA\Get(
+     *     path="/api/advertisement",
+     *     summary="A bejelentkezett felhasználó összes hirdetésének listázása",
+     *     tags={"Advertisement"},
+     *     description="",
+     *     security={{ "sanctum": {} }},
+     *     @OA\Response(
+     *         response=200,
+     *         description="Sikeres művelet",
+     *         @OA\Schema(
+     *             type="array",
+     *             @OA\Items(ref="#/components/schemas/Advertisement")
+     *         ),
+     *     ),
+     *     @OA\Response(
+     *         response=401,
+     *         description="Nincs bejelentkezve a felhasználó vagy érvénytelen token",
+     *     ),
+     * )
      */
     public function index()
     {
@@ -92,7 +117,40 @@ class AdvertisementController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * @OA\Delete(
+     *     path="/api/advertisement/{id}",
+     *     summary="Törli a hirdetést",
+     *     description="Megadott azonosítójú hirdetés törlése",
+     *     operationId="destroy",
+     *     tags={"Advertisement"},
+     *     @OA\Parameter(
+     *         description="Törlendő hirdetés azonosítója",
+     *         in="path",
+     *         name="id",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="integer",
+     *             format="int64"
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=204,
+     *         description="Sikeres törlés"
+     *     ),
+     *     @OA\Response(
+     *         response=401,
+     *         description="Nincs bejelentkezve"
+     *     ),
+     *     @OA\Response(
+     *         response=403,
+     *         description="Nem saját hirdetés"
+     *     ),
+     *     @OA\Response(
+     *         response=404,
+     *         description="Hirdetés nem található"
+     *     ),
+     *     security={{"sanctum": {}}}
+     * )
      */
     public function destroy(string $id)
     {
@@ -105,6 +163,22 @@ class AdvertisementController extends Controller
         return response()->noContent();
     }
 
+    /**
+     * @OA\Get(
+     *     path="/api/advertisement/all",
+     *     summary="Összes hirdetés listázása",
+     *     tags={"Advertisement"},
+     *     description="",
+     *     @OA\Response(
+     *         response=200,
+     *         description="Sikeres művelet",
+     *         @OA\Schema(
+     *             type="array",
+     *             @OA\Items(ref="#/components/schemas/Advertisement")
+     *         ),
+     *     ),
+     * )
+     */
     public function all() {
         $advertisement = Advertisement::with("user")->get();
         return $advertisement;
