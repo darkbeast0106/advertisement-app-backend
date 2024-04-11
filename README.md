@@ -50,6 +50,12 @@ Frontend: [https://github.com/darkbeast0106/advertisement-app-frontend](https://
   php artisan serve
   ```
 
+- Swagger dokumentáció újragenerálása (opcionális)
+  
+  ```sh
+  php artisan l5-swagger:generate
+  ```
+  
 ## Swagger elérhetősége
 
 - /api/documentation oldalon elérhető a swagger UI
